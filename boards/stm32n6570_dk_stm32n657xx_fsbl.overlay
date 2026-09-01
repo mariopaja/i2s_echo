@@ -1,0 +1,76 @@
+/*
+ * Copyright (c) 2026 Mario Paja
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/*
+ * SAI1:
+ * f_IC7 = 8.214 MHz (1.536 GHz / 187, +0.27%)
+ * Suitable for 16 kHz audio sample rates with div-512 SAI MCLK divider
+ * 8.214 MHz / 512 = 16.043 kHz
+ *
+ * f_IC7 = 11.294 MHz (1.536 GHz / 136, +0.04%)
+ * Suitable for 44.1 kHz audio sample rates with div-256 SAI MCLK divider
+ * 11.294 MHz / 256 = 44.117 kHz
+ *
+ * f_IC7 = 12.288 MHz (1.536 GHz / 125, 0.00%)
+ * Suitable for 48 kHz audio sample rates with div-256 SAI MCLK divider
+ * 12.288 MHz / 256 = 48.000 kHz
+ */
+&ic7 {
+	status = "okay";
+	pll-src = <2>; /* 4 */
+	ic-div = <136>; /* 106 */
+};
+
+&sai1 {
+	status = "okay";
+	clocks = <&rcc STM32_CLOCK(APB2, 21)>,
+		<&rcc STM32_SRC_IC7 SAI1_SEL(2)>;
+	clock-names = "sai_ck", "sai_ker_ck";
+};
+
+&gpdma1 {
+	status = "okay";
+};
+
+&i2c2 {
+	audio_codec: wm8904@1a {
+		compatible = "wolfson,wm8904";
+		reg = <0x1a>;
+		status = "okay";
+
+		input-pga-select = <1>;
+		wolfson,mic-bias-voltage = "avdd-9-10";
+		
+		fs-ratio = <256>;
+
+		/* Dedend on #112540 */
+		// fll-ref-clk = <11289660>;
+		// clock-source = "FLL";
+	};
+};
+
+
+i2s_tx: &sai1_a {
+	status = "okay";
+	pinctrl-0 = <&sai1_mclk_a_pg7 &sai1_sd_a_pb7
+	     &sai1_fs_a_pb0 &sai1_sck_a_pb6>;
+	pinctrl-names = "default";
+
+	mclk-enable;
+	mclk-divider = "div-256";
+	dma-names = "tx";
+	// fifo-threshold="empty";
+};
+
+i2s_rx: &sai1_b {
+	status = "okay";
+	pinctrl-0 = <&sai1_sd_b_pe3>;
+	pinctrl-names = "default";
+
+	synchronous;
+	dma-names = "rx";
+	// fifo-threshold="empty";
+};
+

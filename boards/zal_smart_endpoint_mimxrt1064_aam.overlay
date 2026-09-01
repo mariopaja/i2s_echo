@@ -1,0 +1,15 @@
+/*
+ * Copyright (c) 2023 ZAL Zentrum für Angewandte Luftfahrtforschung GmbH
+ * Copyright (c) 2023 Mario Paja
+ */
+
+audio_codec: &wm8904 {
+	compatible = "wolfson,wm8904";
+	reg = <0x1a>;
+	clocks = <&ccm IMX_CCM_SAI1_CLK 0x7C 18>;
+	clock-source = "MCLK";
+	clock-names = "mclk";
+};
+
+i2s_tx: &sai_tx{};
+i2s_rx: &sai_rx{};
