@@ -34,6 +34,16 @@
 	status = "okay";
 };
 
+/ {
+	wm8904_fll_ref: sai1a-mclk {
+		compatible = "fixed-clock";
+
+		/* 1.536 GHz / 136 */
+		clock-frequency = <11294117>;
+		#clock-cells = <0>;
+	};
+};
+
 &i2c2 {
 	audio_codec: wm8904@1a {
 		compatible = "wolfson,wm8904";
@@ -43,11 +53,9 @@
 		input-pga-select = <1>;
 		wolfson,mic-bias-voltage = "avdd-9-10";
 		
-		fs-ratio = <256>;
-
-		/* Dedend on #112540 */
-		// fll-ref-clk = <11289660>;
-		// clock-source = "FLL";
+		clock-source = "FLL";
+		clocks = <&wm8904_fll_ref>;
+		clock-names = "mclk";
 	};
 };
 
