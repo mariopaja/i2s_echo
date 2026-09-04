@@ -6,8 +6,11 @@
 audio_codec: &wm8904 {
 	compatible = "wolfson,wm8904";
 	reg = <0x1a>;
+
+	//clock-source = "MCLK";
+	clock-source = "FLL";
+
 	clocks = <&ccm IMX_CCM_SAI1_CLK 0x7C 18>;
-	clock-source = "MCLK";
 	clock-names = "mclk";
 };
 
