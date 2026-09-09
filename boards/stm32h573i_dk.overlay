@@ -1,0 +1,9 @@
+/*
+ * Copyright (c) 2026 Mario Paja
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+i2s_tx: &sai2_a {};
+
+i2s_rx: &sai2_b {};

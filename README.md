@@ -40,6 +40,14 @@ Board-specific devicetree overlays and Kconfig fragments live under
 | `nucleo_h563zi` | SAI1_B (target/slave) | SAI1_A (controller/master) | none - pure SAI loopback |
 | `stm32n6570_dk/stm32n657xx/fsbl` | SAI1_B (target, sync) | SAI1_A (controller/master) | Wolfson WM8904 over I2C2 |
 | `zal_smart_endpoint/mimxrt1064/aam` | SAI RX | SAI TX | Wolfson WM8904 over I2C |
+| `stm32h573i_dk@C2/stm32h573xx` | SAI2_B (target, sync) | SAI2_A (controller/master) | Cirrus CS42L51 over I2C4 |
+| `stm32h573i_dk@D1/stm32h573xx` | SAI2_B (target, sync) | SAI2_A (controller/master) | Wolfson WM8904 over I2C4 |
+
+`stm32h573i_dk` has two hardware revisions with different audio codecs
+fitted (C2: CS42L51, D1: WM8904). Without an explicit `@C2`/`@D1` suffix the
+build targets the plain board with no codec at all, which this app's
+`audio_codec` node lookup needs - so a revision must be given here, see
+[the board's devicetree](../zephyr/boards/st/stm32h573i_dk/).
 
 ## Building and flashing
 
