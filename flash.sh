@@ -3,6 +3,7 @@
 # List of available boards
 boards=(
   "stm32n6570_dk/stm32n657xx/fsbl"
+  "stm32n6570_dk/stm32n657xx/sb"
 )
 
 echo "Select a board:"

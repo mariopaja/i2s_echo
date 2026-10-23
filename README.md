@@ -35,11 +35,12 @@ Audio format:
 Board-specific devicetree overlays and Kconfig fragments live under
 [boards/](boards/).
 
-| Board target | RX | TX | External codec |
-|---|---|---|---|
-| `nucleo_h563zi` | SAI1_B (target/slave) | SAI1_A (controller/master) | none - pure SAI loopback |
-| `stm32n6570_dk/stm32n657xx/fsbl` | SAI1_B (target, sync) | SAI1_A (controller/master) | Wolfson WM8904 over I2C2 |
-| `zal_smart_endpoint/mimxrt1064/aam` | SAI RX | SAI TX | Wolfson WM8904 over I2C |
+| Board target                        	| RX                    	| TX                         	| External codec           	|
+|-------------------------------------	|-----------------------	|----------------------------	|--------------------------	|
+| `nucleo_h563zi`                     	| SAI1_B (target/slave) 	| SAI1_A (controller/master) 	| non - pure SAI loopback  	|
+| `stm32n6570_dk/stm32n657xx/fsbl`    	| SAI1_B (target, sync) 	| SAI1_A (controller/master) 	| Wolfson WM8904 over I2C2 	|
+| `stm32n6570_dk/stm32n657xx/sb`    	| SAI1_B (target, sync) 	| SAI1_A (controller/master) 	| Wolfson WM8904 over I2C2 	|
+| `zal_smart_endpoint/mimxrt1064/aam` 	| SAI RX                	| SAI TX                     	| Wolfson WM8904 over I2C  	|
 
 ## Building and flashing
 
